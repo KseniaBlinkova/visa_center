@@ -1,0 +1,215 @@
+.my-btn { 
+  margin-right: 5px;           /* задаем отступ от кнопки справа */
+  margin-top: 5px;             /* задаем отступ от кнопки сверху*/
+  width: 50px;                 /* задаем ширину кнопки */
+  height: 50px;                /* задаем высоту кнопки */       
+  background-color: rgb(255, 255, 255);          
+  font-size: 1.5rem;           /* увеличим размер шрифта */
+  font-family: Arial, Helvetica, sans-serif; /* сменим шрифт */
+  cursor: pointer;             /* при наведении на кнопку курсор будет изменен
+                                  со стрелки на 'указательный палец' */
+  user-select: none;           /* отключаем возможность выделить текст внутри кнопки */
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+} 
+
+.change-theme {
+    position: absolute;  /* ← ЭТО КЛЮЧЕВОЕ! */
+    top: 35px;
+    right: 30px;
+    background-color: rgba(255, 255, 255, 0.15);  /* Прозрачный белый фон */
+    backdrop-filter: blur(10px);                   /* Эффект матового стекла */
+    border: 1px solid rgba(255, 255, 255, 0.3);    /* Тонкая белая рамка */
+    border-radius: 6px;                           /* Скругленные углы */
+    padding: 2px;   
+}
+
+.theme-btn {
+    padding: 8px 16px;
+    color: rgb(255, 255, 255);
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;                                   /* Убираем ВСЕ обводки */
+    border-radius: 6px; 
+    
+}
+
+.theme-btn:hover {
+  background: rgb(137, 139, 142); /* при наведение курсора на кнопку, она будет окрашена в серый */
+  font-weight: 700;
+}
+
+/* hover - это состояние элемента, когда на него наведен курсор */
+.my-btn:hover {
+  background: rgb(221, 222, 224); /* при наведение курсора на кнопку, она будет окрашена в серый */
+  font-weight: 700;
+}
+
+/* active - это состояние активации элемента. В случае кнопки - нажатие на нее */
+.my-btn:active {
+  filter: brightness(130%); /* увеличим интенсивность цвета для эффекта вспышки */
+}
+
+/* селектор для кнопок первостепенных операций */
+.my-btn.primary { 
+  background: rgb(50, 66, 170); 
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+  color:white;
+}
+
+.my-btn.primary:hover {
+  background: rgb(82, 143, 234);  
+  color: white;
+}
+
+/* селектор для кнопок второстепенных операций */
+.my-btn.secondary { 
+  background: rgb(154, 152, 152); /* цвет кнопки сервый */
+}
+
+.my-btn.secondary:hover{
+  background-color: rgb(118, 119, 114);
+}
+/* селектор для кнопки расчета выражения (=) */
+.my-btn.execute { 
+  width: 110px;          /* сделаем кнопку шире других */
+  background-color:  rgb(179, 34, 40);
+}
+
+.my-btn.execute:hover{ 
+  width: 110px;          /* сделаем кнопку шире других */
+  background-color:  rgb(208, 59, 64);
+}
+
+/* селектор для поля вывода результата */
+.result { 
+  width: 220px;
+  height: 50px;
+  margin-bottom: 10px;         /* отступ снизу */
+  padding-right: 10px;         /* выступ справа */
+  text-align: right;           /* примагнитим текст к правой стороне */
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;     /* Элементы в колонку */
+  align-items: center;        /* Центрируем по горизонтали */
+  min-height: 100vh;
+  /*margin: 0;*/
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255); 
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 14px;
+  background-image: url('top_main.jpg'); 
+  background-size: cover;
+  background-position: center;
+
+}
+
+.container{
+  margin: auto;
+  margin-top: 5%;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.4); /* Твою отличную тень оставляем! */
+
+    /* --- МАГИЯ СТЕКЛА НАЧИНАЕТСЯ ЗДЕСЬ --- */
+
+    /* 1. Делаем фон белым, но прозрачным на 15% (поиграй с последней цифрой от 0.1 до 0.5) */
+  background-color: rgba(255, 255, 255, 0.15);
+
+    /* 2. Размываем всё, что находится ПОД калькулятором (тот самый эффект матового стекла) */
+  backdrop-filter: blur(10px);
+
+    /* 3. Делаем рамку тоже полупрозрачной, чтобы сымитировать блик на грани стекла */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.author-information {
+    margin-top: 5px;           /* Отступ от калькулятора */
+    margin-bottom: 10px;
+    width: fit-content;         /* Ширина по содержимому */
+    margin-left: auto;          /* Центрируем */
+    margin-right: auto;         /* Центрируем */
+    background: rgb(255, 255, 255);          /* Белый фон (не синий) */
+    padding: 15px;
+    border-radius: 8px; 
+}
+
+
+.author-details {
+    font-family: "Open Sans", Arial, sans-serif;
+    color: rgb(50, 66, 170);
+}
+
+.author-details summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: rgb(50, 66, 170);    /* Синий текст как на портале */
+}
+
+.github-button-container {
+    text-align: center;      /* Центрируем */
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.github-btn {
+    display: inline-block;    /* Чтобы можно было задать отступы */
+    padding: 10px 20px;       /* Отступы внутри кнопки */
+    background-color: rgb(50, 66, 170); /* Цвет GitHub */
+    color: white;              /* Белый текст */
+    border-radius: 6px;        /* Скругление */
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+}
+
+.github-btn:hover {
+    background-color: #838684; /* Зеленый при наведении */
+}
+
+/* Контейнер для цели ЛР */
+.lab-purpose {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding: 15px;
+    /*background-color: rgba(255, 255, 255, 0.9);*/
+    background-color: rgba(255, 255, 255, 0.15);
+
+    /* 2. Размываем всё, что находится ПОД калькулятором (тот самый эффект матового стекла) */
+    backdrop-filter: blur(10px);
+
+    /* 3. Делаем рамку тоже полупрозрачной, чтобы сымитировать блик на грани стекла */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+.lab-purpose .highlight {
+    background-color: rgb(50, 66, 170); 
+    color: white;                       
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 0 2px;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+}
