@@ -1,0 +1,206 @@
+.btn { 
+  margin-right: 5px;      
+  margin-top: 5px;           
+  width: 50px;                
+  height: 50px;                    
+  background-color: rgb(255, 255, 255);          
+  font-size: 22px;           
+  font-family:  "Open Sans", Arial, sans-serif; 
+  cursor: pointer;                      
+  border-radius: 5px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+} 
+
+.change-theme {
+    position: absolute;  
+    top: 35px;
+    right: 30px;
+    background-color: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(10px);                   
+    border: 1px solid rgba(255, 255, 255, 0.3);   
+    border-radius: 5px;                           
+    padding: 2px;   
+}
+
+.theme-btn {
+    padding: 8px 16px;
+    color: rgb(255, 255, 255);
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;                                 
+    border-radius: 5px; 
+    
+}
+
+.theme-btn:hover {
+  background: rgb(137, 139, 142); 
+  font-weight: 700;
+}
+
+.btn:hover {
+  background: rgb(221, 222, 224); 
+  font-weight: 700;
+}
+
+.btn:active {
+  filter: brightness(130%);
+}
+
+.btn.primary { 
+  background: rgb(50, 66, 170); 
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+  color:white;
+}
+
+.btn.author{
+  font-size: 10px;
+  background-color: rgb(115, 18, 203) ;
+  color:#ffffff;
+  width: 108px;
+
+}
+
+.btn.author.btn:hover{
+  background-color:  rgb(115, 76, 223);
+}
+
+.btn.primary:hover {
+  background: rgb(82, 143, 234);  
+  color: white;
+}
+
+.btn.secondary { 
+  background: rgb(154, 152, 152); 
+}
+
+
+.btn.execute:hover{
+  background-color:  rgb(223, 105, 109);
+}
+
+
+.btn.secondary:hover{
+  background-color: rgb(118, 119, 114);
+}
+
+.btn.execute { 
+  background-color:  rgb(179, 34, 40); 
+  width: 224px;
+}      
+
+.display { 
+  width: 220px;
+  height: 50px;
+  margin-bottom: 10px;         
+  padding-right: 10px;        
+  text-align: right;         
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;     
+  align-items: center;     
+  min-height: 100vh;
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255); 
+  font-family: "Open Sans", Arial, sans-serif;
+  font-size: 14px;
+  background-image: url('moscow.jpg'); 
+  background-size: cover;
+  background-position: center;
+  
+}
+
+.visa-container{
+  margin: auto;
+  margin-top: 5%;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.4); 
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.author-information {
+    margin-top: 5px;           
+    margin-bottom: 10px;
+    width: fit-content;         
+    margin-left: auto;          
+    margin-right: auto;        
+    background: rgb(255, 255, 255);         
+    padding: 15px;
+    border-radius: 5px; 
+}
+
+
+.author-details {
+    font-family: "Open Sans", Arial, sans-serif;
+    color: rgb(50, 66, 170);
+}
+
+.author-details summary {
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.github-button-container {
+    text-align: center;      
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+.github-btn {
+    display: inline-block;  
+    padding: 10px 20px;      
+    background-color: rgb(50, 66, 170); 
+    color: white;              
+    border-radius: 5px;       
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+}
+
+.github-btn:hover {
+    background-color: #838684;
+}
+
+/* Контейнер для цели ЛР */
+.lab-purpose {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Open Sans", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+.lab-purpose .highlight {
+    background-color: rgb(50, 66, 170); 
+    color: white;                       
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin: 0 2px;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+}
