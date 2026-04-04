@@ -80,6 +80,5 @@ document.querySelectorAll('.btn').forEach(button => {
 
 const themeBtn = document.getElementById('theme-toggle');
 themeBtn.addEventListener('click', () => {
-document.body.style.backgroundImage = document.body.style.backgroundImage.includes('moscow.jpg') 
-    ? "url('light.jpg')" : "url('moscow.jpg')";
+document.body.style.backgroundImage = document.body.style.backgroundImage.includes('moscow.jpg') ? "url('light.jpg')" : "url('moscow.jpg')";
 });
