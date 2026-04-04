@@ -1,0 +1,22 @@
+{
+  "name": "blinkova-pna-labs-2026",
+  "version": "1.0.0",
+  "description": "Знакомство с инструментами построения пользовательских интерфейсов web-сайтов: HTML и CSS.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KseniaBlinkova/Blinkova-PNA-Labs-2026.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KseniaBlinkova/Blinkova-PNA-Labs-2026/issues"
+  },
+  "homepage": "https://github.com/KseniaBlinkova/Blinkova-PNA-Labs-2026#readme",
+  "dependencies": {
+    "bootstrap": "^5.3.8"
+  }
+}
