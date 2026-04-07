@@ -2,15 +2,24 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
     <meta charset="UTF-8">
     <title>Визовый центр</title>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
-    <div class="visa-header">
-        <h1>Визовый центр</h1>
-    </div>
+    <div style=" background: #3242AA;; color: white; padding: 20px; display: flex; justify-content: space-between; ">
+    <h1 style="margin: 0;">Визовый центр</h1>
+    <button id="home-button" style="background: white; color: black; border: none;  border-radius: 8px; padding: 8px 20px; width: 150px;height: 40px;">🏠 Домой</button>
+</div>
 
     <div id="root"></div>
 
@@ -18,4 +27,3 @@
     <script src="main.js" type="module"></script>
 </body>
 </html>
-

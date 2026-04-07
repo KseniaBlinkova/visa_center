@@ -1,6 +1,8 @@
 import { VisaDetailComponent } from "../../components/visa-detail/index.js";
 import { BackButtonComponent } from "../../components/back-button/index.js";
 import { MainPage } from "../main/index.js";
+// ИСПРАВЛЕНО: Путь через ../../ надежнее, если корень сайта не настроен строго
+import { getMaxOnesSequence } from "../../src/utils/homework.js"; 
 
 export class VisaPage {
     constructor(parent, id) {
@@ -8,45 +10,34 @@ export class VisaPage {
         this.id = id;
     }
 
-    get pageRoot() {
-        return document.getElementById('visa-page');
-    }
+    // МЕТОД getHTML УДАЛЕН. Он теперь берется из VisaDetailComponent.
 
-    getHTML() {
-    return `<div id="visa-page" class="p-3"></div>`;
-}
     getData() {
         const visaData = {
             1: {
                 title: "Туристическая виза",
-                src: "https://avatars.mds.yandex.net/i?id=e8ad0b199d7cb6c09ae79b47475319eaf10cb2ac-5227398-images-thumbs&n=13",
-                fullText: "Туристическая виза предназначена для краткосрочных поездок с целью отдыха или знакомства со страной. Обычно выдаётся на срок от двух недель до трёх месяцев и не разрешает вести в стране пребывания трудовую деятельность. Для получения требуется подтверждение бронирования отеля, обратные билеты и выписка с банковского счёта."
+                fullText: "Туристическая виза предназначена для краткосрочных поездок с целью отдыха или знакомства со страной. Обычно выдаётся на срок от двух недель до трёх месяцев и не разрешает вести в стране пребывания трудовую деятельность."
             },
             2: {
                 title: "Деловая виза",
-                src: "https://as2.ftcdn.net/jpg/04/97/69/45/1000_F_497694534_nRWXyh4rBvxN5tfltJw3GciWc6D9jIBn.jpg",
                 fullText: "Деловая виза предназначена для участия в переговорах, конференциях или других рабочих мероприятиях. Для получения нужно предоставлять приглашение от принимающей компании. Виза может быть однократной или многократной."
             },
             3: {
                 title: "Медицинская виза",
-                src: "https://t3.ftcdn.net/jpg/09/85/68/40/360_F_985684016_4R0lAtjvTeJeCx5tG01NVWYGzALa211n.jpg",
                 fullText: "Медицинская виза выдаётся для прохождения лечения или медицинского обследования за рубежом. Требуется приглашение от медицинского учреждения, подтверждение диагноза и финансовые гарантии оплаты лечения."
             },
             4: {
                 title: "Студенческая виза",
-                src: "https://avatars.mds.yandex.net/i?id=e7e8ed3455c62d9b6ddbc567bebdeb83_l-10075807-images-thumbs&n=13",
-                fullText: "Студенческая виза выдаётся иностранным студентам для обучения в зарубежных образовательных учреждениях. Даёт право находиться в стране в течение всего срока обучения. Для получения необходимо подтверждение зачисления и финансовая гарантия."
+                fullText: "Студенческая виза выдаётся иностранным студентам для обучения в зарубежных образовательных учреждениях. Даёт право находиться в стране в течение всего срока обучения. Для получения необходимо подтверждение зачисления."
             },
             5: {
                 title: "Виза по приглашению",
-                src: "https://espanaservice.com/images/publications/content/Statii/VIP_Europa/VIP_Pekin.jpg",
-                fullText: "Виза по приглашению предназначена для посещения родственников или друзей по частному приглашению. Требуется нотариально заверенное приглашение от принимающей стороны, подтверждение родства или дружеских связей."
+                fullText: "Виза по приглашению предназначена для посещения родственников или друзей по частному приглашению. Требуется нотариально заверенное приглашение от принимающей стороны и подтверждение родства."
             }
         };
 
         return visaData[this.id] || {
             title: "Информация о визе",
-            src: "https://images.pexels.com/photos/1450103/pexels-photo-1450103.jpeg?w=400&h=300&fit=crop",
             fullText: "Подробная информация о данном типе визы. Обратитесь в консульство для уточнения деталей."
         };
     }
@@ -57,15 +48,86 @@ export class VisaPage {
         mainPage.render();
     }
 
+    init3D() {
+        // Динамический импорт Three.js
+        import('three').then(async (THREE) => {
+            const { GLTFLoader } = await import('three/examples/jsm/loaders/GLTFLoader.js');
+            const { OrbitControls } = await import('three/examples/jsm/controls/OrbitControls.js');
+
+            const container = document.getElementById('container-3d');
+            if (!container) {
+                console.error("Контейнер container-3d не найден в DOM!");
+                return;
+            }
+
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf8f9fa);
+
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 0, 7);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.innerHTML = '';
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+            scene.add(ambientLight);
+            
+            const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+            sunLight.position.set(5, 5, 5);
+            scene.add(sunLight);
+
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+
+            const loader = new GLTFLoader();
+            // Путь к модели должен быть от корня или относительно этого файла
+            loader.load('../../models/planet.glb', (gltf) => {
+                const model = gltf.scene;
+                
+                const box = new THREE.Box3().setFromObject(model);
+                const size = box.getSize(new THREE.Vector3()).length();
+                const center = box.getCenter(new THREE.Vector3());
+
+                model.position.x += (model.position.x - center.x);
+                model.position.y += (model.position.y - center.y);
+                model.position.z += (model.position.z - center.z);
+
+                const scale = 6 / size;
+                model.scale.set(scale, scale, scale);
+
+                scene.add(model);
+
+                const animate = () => {
+                    requestAnimationFrame(animate);
+                    model.rotation.y += 0.005; 
+                    controls.update(); 
+                    renderer.render(scene, camera);
+                };
+                animate();
+            }, undefined, (error) => {
+                console.error("Ошибка загрузки модели:", error);
+            });
+        });
+    }
+
     render() {
-        this.parent.innerHTML = '';
-        this.parent.insertAdjacentHTML('beforeend', this.getHTML());
-
-        const backButton = new BackButtonComponent(this.pageRoot);
-        backButton.render(this.clickBack.bind(this));
-
         const data = this.getData();
-        const detail = new VisaDetailComponent(this.pageRoot);
-        detail.render(data);
+        this.parent.innerHTML = ''; 
+
+        // 1. Отрисовка кнопки "Назад"
+        this.parent.insertAdjacentHTML('beforeend', '<div id="back-button-container" class="container mt-4 mb-3 ps-0"></div>');
+        const backBtnContainer = document.getElementById('back-button-container');
+        const backButton = new BackButtonComponent(backBtnContainer);
+        backButton.render(() => this.clickBack());
+
+        // 2. Отрисовка карточки через КОМПОНЕНТ
+        // Важно: VisaDetailComponent должен содержать <div id="container-3d"></div>
+        const detailComponent = new VisaDetailComponent(this.parent);
+        detailComponent.render(data);
+
+        // 3. Оживление 3D-планеты
+        this.init3D(); 
     }
 }
