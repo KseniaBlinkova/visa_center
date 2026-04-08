@@ -1,55 +1,95 @@
- /* База */
-body {
-    background-color: #f4f6f9;
-    font-family: 'Open Sans', sans-serif;
-    color: #333;
+/* --- ШАПКА (СИНЯЯ ПАНЕЛЬ) --- */
+header, .navbar, .header-container { /* Выбери класс своего хедера */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px !important; /* Увеличиваем отступ справа (40px) */
 }
 
-/* Шапка */
-.bg-primary, .visa-header {
-    background-color: #3242AA !important;
+/* --- ПАНЕЛЬ УПРАВЛЕНИЯ (Виды виз, Поиск, Добавить) --- */
+.main-controls-row {
+    display: flex;
+    align-items: center;
+    justify-content: baseline; /* Элементы выстроены в ряд */
+    width: 100%;
+    padding: 10px 0;
 }
 
-/* Кнопки как просил препод */
-.btn-primary, .btn-custom, .btn-success, #add-visa-btn {
-    background-color: #B32228 !important; /* Алый */
-    border-radius: 8px !important;
-    border: none !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+.page-title {
+    margin: 0;
+    min-width: 150px; /* Чтобы заголовок не сжимался */
+    font-weight: bold;
+    color: #3242AA;
 }
 
-/* Карточки виз */
-.card {
-    border-radius: 15px !important;
-    overflow: hidden;
-    border: none !important;
+/* ЦЕНТРИРОВАНИЕ ПОИСКА */
+.search-wrapper {
+    flex-grow: 1; /* Обертка забирает всё свободное место */
+    display: flex;
+    justify-content: center; /* Центрирует поиск внутри обертки */
 }
 
-.card-title {
-    color: #3242AA; /* Заголовки в цвет бренда */
-    font-weight: 700;
+#search-placeholder {
+    width: 100%;
+    max-width: 500px; /* Ограничиваем ширину поиска, чтобы он не был на весь экран */
 }
 
-/* Второстепенные кнопки (Сложность/Условия) */
-.btn-outline-info, .btn-outline-success, .btn-outline-secondary {
-    border-radius: 8px !important;
-    border: 1px solid #dee2e6 !important;
-    color: #555 !important;
+/* КНОПКА ДОБАВИТЬ */
+#add-btn-placeholder {
+    margin-left: 20px; /* Отступ от поиска */
 }
 
-.btn-outline-info:hover, .btn-outline-success:hover{
-    background-color: #f8f9fa !important;
-}
-
+/* --- КНОПКА НАЗАД (красивая и аккуратная) --- */
 .btn-back {
+    display: inline-flex;
+    align-items: center;
     padding: 10px 20px;
-    background-color: #B32228;
+    background-color: #ffffff;
+    color: #3242AA;
+    border: 2px solid #3242AA;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+
+.btn-back:hover {
+    background-color: #3242AA;
+    color: #ffffff;
+    transform: translateX(-5px);
+}
+
+.btn-back::before {
+    content: "←";
+    margin-right: 10px;
+}
+
+.btn-custom-details {
+    background-color: #3242AA; /* Твой цвет (например, темно-красный) */
     color: white;
     border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 16px;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.btn-custom-details:hover {
+    background-color: #4e30d3; /* Цвет при наведении */
+}
+
+.details-btn {
+    background-color: #3242AA !important; /* Твой синий из РПЗ */
+    color: white !important;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.details-btn:hover {
+    background-color: #26328a !important; /* Немного темнее при наведении */
+}
+
+body {
+    background-color: #f8f9fa; /* Очень светлый серый цвет (стандарт Bootstrap) */
 }

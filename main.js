@@ -1,19 +1,17 @@
-import { MainPage } from "./pages/main/index.js";
+import { MainPage } from "./pages/main/main.js";
+import { ButtonHome } from "./components/button-home/button-home.js";
 
 const root = document.getElementById('root');
+const headerAction = document.getElementById('home-button-container');
+
+const homeBtn = new ButtonHome(headerAction);
+homeBtn.render(() => window.renderPage(MainPage));
 
 window.renderPage = (PageClass, ...args) => {
-    root.innerHTML = ''; // очищаем только root, хедер не трогаем
+    root.innerHTML = ''; 
     const page = new PageClass(root, ...args);
     page.render();
 };
 
-const homeButton = document.getElementById('home-button');
-if (homeButton) {
-    homeButton.addEventListener('click', () => {
-        window.renderPage(MainPage);
-    });
-}
-
-// Запуск
+// Стартовая страница
 window.renderPage(MainPage);
