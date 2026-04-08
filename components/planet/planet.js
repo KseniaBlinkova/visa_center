@@ -51,7 +51,6 @@ export class PlanetComponent {
             case 'right': this.camera.position.set(5, 0, 0); break;
         }
 
-        // ВАЖНО: обновляем контроллер, чтобы он зафиксировал новую позицию
         this.controls.update();
     }
     zoomIn() { if (this.model) this.model.scale.multiplyScalar(1.1); }

@@ -5,7 +5,7 @@ export class VisaCardComponent {
         this.parent = parent;
     }
 
-    // РЕАЛИЗАЦИЯ ЗАДАЧИ 2.3 (Максимальная серия)
+    // РЕАЛИЗАЦИЯ ЗАДАЧИ 2.3 
     getMaxApprovalSeries(binaryStr) {
         if (!binaryStr) return 0;
         return Math.max(...binaryStr.split('0').map(group => group.length));
