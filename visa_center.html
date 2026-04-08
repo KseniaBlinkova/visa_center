@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Визовый центр</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="header-content">
+      <h3 class="logo">Визовый центр</h3>
+      <button id="theme-toggle" class="theme-btn-header">Сменить тему</button>
+    </div>
+  </header>
+
+<div class="lab-purpose">
+    <p>Цель лабораторной работы: <span class="highlight">знакомство</span> 
+      с инструментами построения пользовательских интерфейсов 
+      web-сайтов: <span class="highlight">HTML</span> и <span class="highlight">CSS</span>.</p>
+  </div>
+
+  <main class="app-content">
+      <aside class="author-sidebar">
+          <details class="author-details">
+            <summary>Автор</summary>
+              <div class="author-content">
+                <p><strong>ФИО:</strong> Блинкова Ксения</p>
+                <p><strong>Группа:</strong> ИУ5-41Б</p>
+              </div>
+          </details>
+      </aside>
+
+      <div class="viza-container"> 
+          <div class="display-wrapper">
+              <select id="from-currency" class="curr-select">
+                  <option value="USD">$</option>
+                  <option value="EUR">€</option>
+                  <option value="GBP">£</option>
+                  <option value="CNY">¥</option>
+                  <option value="RUB">₽</option>
+              </select>
+              <div id="visa-display" class="display">0</div>
+            <select id="to-currency" class="curr-select">
+                <option value="RUB">₽</option>
+                <option value="USD">$</option>
+                <option value="EUR">€</option>
+                <option value="GBP">£</option> <option value="CNY">¥</option>
+            </select>
+          </div>
+
+          <div class="calc-keypad">
+              <div class="calc-row">  
+                  <button id="op_clear" class="calc-btn secondary">C</button>   
+                  <button id="op_revoke" class="calc-btn secondary">+/-</button>
+                  <button id="op_rate" class="calc-btn secondary">%</button>
+                  <button id="op_distribute" class="calc-btn primary">/</button>
+              </div>
+              <div class="calc-row">
+                  <button id="digit_7" class="calc-btn">7</button>
+                  <button id="digit_8" class="calc-btn">8</button>
+                  <button id="digit_9" class="calc-btn">9</button>
+                  <button id="op_issue" class="calc-btn primary">x</button>
+              </div>
+              <div class="calc-row">
+                  <button id="digit_4" class="calc-btn">4</button>
+                  <button id="digit_5" class="calc-btn">5</button>
+                  <button id="digit_6" class="calc-btn">6</button>
+                  <button id="op_deny" class="calc-btn primary">-</button>
+              </div>
+              <div class="calc-row">
+                  <button id="digit_1" class="calc-btn">1</button>
+                  <button id="digit_2" class="calc-btn">2</button>
+                  <button id="digit_3" class="calc-btn">3</button>
+                  <button id="op_submit" class="calc-btn primary">+</button>
+              </div>
+              <div class="calc-row">
+                  <button id="digit_0" class="calc-btn">0</button>
+                  <button id="op_dot" class="calc-btn">.</button>
+                <button id="op_report" class="calc-btn currency-btn ">=</button>
+              </div>
+              <!-- <button id="op_budget" class="calc-btn execute">Перевести</button> -->
+          </div>
+      </div>
+  </main>
+  
+  <footer class="footer-area">
+    <a href="https://github.com/KseniaBlinkova/Blinkova-PNA-Labs-2026.git" target="_blank" class="github-btn">МОЙ GitHub</a>
+  </footer>
+
+  <script src="visa_calculator.js"></script>
+</body>
+</html>
