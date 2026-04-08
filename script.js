@@ -28,12 +28,12 @@ const rates = {
 };
 const symbols = {"RUB": "₽", "USD": "$", "EUR": "€", "GBP": "£", "CNY": "¥"};
 
-const calculateBudget = () => {
+const calculateVisaEquivalent = () => {
     let amount = parseFloat(currentInput || display.innerText.replace(/[^\d.-]/g, ''));
     if (isNaN(amount)) return;
     const result = (amount * rates[fromCurr.value]) / rates[toCurr.value];
     display.innerText = result.toFixed(2) + " " + symbols[toCurr.value];
-    currentInput = result.toString(); // Сохраняем результат для дальнейших вычислений
+    currentInput = result.toString(); 
     shouldResetScreen = true; 
 };
 
@@ -73,7 +73,7 @@ document.querySelectorAll('.calc-btn').forEach(button => {
         }
         // Конвертация валют
         else if (id === 'op_budget') {
-            calculateBudget();
+            calculateVisaEquivalent();
         } 
         // Равно (=)
         else if (id === 'op_report') {
