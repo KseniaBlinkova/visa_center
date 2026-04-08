@@ -11,11 +11,11 @@ export class MainPage {
 
     getData() {
         return [
-            { id: 1, src: "https://avatars.mds.yandex.net/i?id=e8ad0b199d7cb6c09ae79b47475319eaf10cb2ac-5227398-images-thumbs&n=13", title: "Туристическая виза", text: "Для поездок с целью отдыха." },
-            { id: 2, src: "https://as2.ftcdn.net/jpg/04/97/69/45/1000_F_497694534_nRWXyh4rBvxN5tfltJw3GciWc6D9jIBn.jpg", title: "Деловая виза", text: "Для участия в переговорах." },
-            { id: 3, src: "https://t3.ftcdn.net/jpg/09/85/68/40/360_F_985684016_4R0lAtjvTeJeCx5tG01NVWYGzALa211n.jpg", title: "Медицинская виза", text: "Для лечения за рубежом." },
-            { id: 4, src: "https://avatars.mds.yandex.net/i?id=e7e8ed3455c62d9b6ddbc567bebdeb83_l-10075807-images-thumbs&n=13", title: "Студенческая виза", text: "Для обучения за границей." },
-            { id: 5, src: "https://espanaservice.com/images/publications/content/Statii/VIP_Europa/VIP_Pekin.jpg", title: "Виза по приглашению", text: "Для посещения родственников." }
+            { id: 1, src: "https://avatars.mds.yandex.net/i?id=e8ad0b199d7cb6c09ae79b47475319eaf10cb2ac-5227398-images-thumbs&n=13", title: "Туристическая виза", text: "Для поездок с целью отдыха.", approvalHistory: "1110111101", extraDocs: { special: "Бронь отеля в ЕС" } },
+            { id: 2, src: "https://as2.ftcdn.net/jpg/04/97/69/45/1000_F_497694534_nRWXyh4rBvxN5tfltJw3GciWc6D9jIBn.jpg", title: "Деловая виза", text: "Для участия в переговорах.", approvalHistory: "111011110111111111", extraDocs: { special: "Справка о доходах (2НДФЛ)"} },
+            { id: 3, src: "https://t3.ftcdn.net/jpg/09/85/68/40/360_F_985684016_4R0lAtjvTeJeCx5tG01NVWYGzALa211n.jpg", title: "Медицинская виза", text: "Для лечения за рубежом.", approvalHistory: "100100111"},
+            { id: 4, src: "https://avatars.mds.yandex.net/i?id=e7e8ed3455c62d9b6ddbc567bebdeb83_l-10075807-images-thumbs&n=13", title: "Студенческая виза", text: "Для обучения за границей.", approvalHistory: "00000001" },
+            { id: 5, src: "https://espanaservice.com/images/publications/content/Statii/VIP_Europa/VIP_Pekin.jpg", title: "Виза по приглашению", text: "Для посещения родственников.", approvalHistory: "111111111" }
         ];
     }
 
@@ -53,7 +53,6 @@ export class MainPage {
         data.forEach(item => {
             // Создаем экземпляр компонента карточки
             const card = new VisaCardComponent(list);
-            // Вызываем рендер, передавая данные и функции-колбэки
             card.render(
                 item, 
                 () => window.renderPage(VisaPage, item), 
@@ -71,4 +70,5 @@ export class MainPage {
         new ButtonAdd(document.getElementById('add-btn-placeholder')).render(() => this.addVisa());
         this.renderCards(this.visaData);
     }
+
 }
