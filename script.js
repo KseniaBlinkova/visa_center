@@ -1,85 +1,101 @@
+// 1. Добавляем логику смены темы в самое начало
+const themeToggle = document.getElementById('theme-toggle');
+
+themeToggle.addEventListener('click', () => {
+    // Переключаем класс dark-theme у тега body
+    document.body.classList.toggle('dark-theme');
+    
+    // Меняем текст на кнопке в зависимости от темы
+    if (document.body.classList.contains('dark-theme')) {
+        themeToggle.innerText = 'Светлая тема';
+    } else {
+        themeToggle.innerText = 'Сменить тему';
+    }
+});
+
+// 2. Твой основной код калькулятора с дополнениями
 const display = document.getElementById('visa-display');
+const fromCurr = document.getElementById('from-currency');
+const toCurr = document.getElementById('to-currency');
+
 let currentInput = "";
 let previousValue = 0;
 let operator = null;
+let shouldResetScreen = false;
 
-const addApplications = (a, b) => a + b;         
-const subtractDenials = (a, b) => a - b;       
-const multiplyIssuedVisas = (a, b) => a * b;     
-const divideByConsulates = (a, b) => b !== 0 ? a / b : "Error"; 
-const revokeVisas = (val) => val * -1;            
-const getApprovalRate = (val) => val / 100;       
+const rates = {
+    "RUB": 1, "USD": 92.45, "EUR": 100.10, "GBP": 116.30, "CNY": 12.75
+};
+const symbols = {"RUB": "₽", "USD": "$", "EUR": "€", "GBP": "£", "CNY": "¥"};
 
-const calculateRequiredBudget = () => {
-    const days = parseFloat(currentInput || display.innerText);
-    if (isNaN(days) || days <= 0) return;
-
-    const totalBudget = days * 70 * 100;
-    
-    const currentVal = display.innerText;
-    display.innerText = totalBudget.toLocaleString() + " ₽";
-    display.style.fontSize = "1.3rem";
-
-    setTimeout(() => {
-        display.innerText = currentVal;
-        display.style.fontSize = "2rem";
-    }, 2000);
+const calculateBudget = () => {
+    let amount = parseFloat(currentInput || display.innerText.replace(/[^\d.-]/g, ''));
+    if (isNaN(amount)) return;
+    const result = (amount * rates[fromCurr.value]) / rates[toCurr.value];
+    display.innerText = result.toFixed(2) + " " + symbols[toCurr.value];
+    currentInput = result.toString(); // Сохраняем результат для дальнейших вычислений
+    shouldResetScreen = true; 
 };
 
-document.querySelectorAll('.btn').forEach(button => {
+document.querySelectorAll('.calc-btn').forEach(button => {
     button.addEventListener('click', () => {
         const id = button.id;
         const text = button.innerText;
 
-        if (id.startsWith('digit_')) {
+        // Ввод цифр и точки
+        if (id.startsWith('digit_') || id === 'op_dot') {
+            if (display.innerText === "0" || shouldResetScreen) {
+                currentInput = "";
+                shouldResetScreen = false;
+            }
+            if (text === "." && currentInput.includes(".")) return;
             currentInput += text;
             display.innerText = currentInput;
         } 
-        else if (id === 'op_dot') {
-            if (!currentInput.includes('.')) currentInput += ".";
-            display.innerText = currentInput;
-        } 
+        // Очистка (C)
         else if (id === 'op_clear') {
-            currentInput = ""; previousValue = 0; operator = null;
+            currentInput = ""; 
+            previousValue = 0; 
+            operator = null;
             display.innerText = "0";
         } 
-        else if (id === 'op_budget') {
-            calculateRequiredBudget();
-        } 
+        // Смена знака (+/-) — ДОБАВЛЕНО
         else if (id === 'op_revoke') {
-            currentInput = revokeVisas(parseFloat(currentInput || 0)).toString();
+            if (display.innerText === "0") return;
+            currentInput = (parseFloat(display.innerText) * -1).toString();
             display.innerText = currentInput;
-        } 
+        }
+        // Процент (%) — ДОБАВЛЕНО
         else if (id === 'op_rate') {
-            currentInput = getApprovalRate(parseFloat(currentInput || 0)).toString();
+            if (display.innerText === "0") return;
+            currentInput = (parseFloat(display.innerText) / 100).toString();
             display.innerText = currentInput;
+        }
+        // Конвертация валют
+        else if (id === 'op_budget') {
+            calculateBudget();
         } 
+        // Равно (=)
         else if (id === 'op_report') {
             if (operator && currentInput !== "") {
-                let result = 0;
                 let second = parseFloat(currentInput);
-                if (operator === '+') result = addApplications(previousValue, second);
-                if (operator === '-') result = subtractDenials(previousValue, second);
-                if (operator === '*') result = multiplyIssuedVisas(previousValue, second);
-                if (operator === '/') result = divideByConsulates(previousValue, second);
-                display.innerText = result;
-                currentInput = result.toString();
+                let res = 0;
+                if (operator === '+') res = previousValue + second;
+                if (operator === '-') res = previousValue - second;
+                if (operator === 'x') res = previousValue * second;
+                if (operator === '/') res = second !== 0 ? previousValue / second : "Err";
+                
+                display.innerText = res;
+                currentInput = res.toString();
                 operator = null;
+                shouldResetScreen = true;
             }
         } 
-        else {
-            if (currentInput !== "") {
-                previousValue = parseFloat(currentInput);
-                operator = text === 'x' ? '*' : text;
-                currentInput = "";
-            }
+        // Операции (+, -, x, /)
+        else if (button.classList.contains('primary')) {
+            previousValue = parseFloat(display.innerText);
+            operator = text;
+            shouldResetScreen = true; // Чтобы после нажатия оператора ввод цифр начинался заново
         }
     });
-});
-
-
-const themeBtn = document.getElementById('theme-toggle');
-themeBtn.addEventListener('click', () => {
-document.body.style.backgroundImage = document.body.style.backgroundImage.includes('moscow.jpg') 
-    ? "url('light.jpg')" : "url('moscow.jpg')";
 });

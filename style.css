@@ -1,206 +1,201 @@
-.btn { 
-  margin-right: 5px;      
-  margin-top: 5px;           
-  width: 50px;                
-  height: 50px;                    
-  background-color: rgb(255, 255, 255);          
-  font-size: 22px;           
-  font-family:  "Open Sans", Arial, sans-serif; 
-  cursor: pointer;                      
-  border-radius: 5px;
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
-} 
-
-.change-theme {
-    position: absolute;  
-    top: 35px;
-    right: 30px;
-    background-color: rgba(255, 255, 255, 0.15); 
-    backdrop-filter: blur(10px);                   
-    border: 1px solid rgba(255, 255, 255, 0.3);   
-    border-radius: 5px;                           
-    padding: 2px;   
+/* 1. Определяем палитру */
+:root {
+    --bg-color: #f4f7f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --header-bg: #3242AA;
+    --display-bg: #f8f9fa;
+    --btn-default: #fcfcfc;
+    --btn-secondary: #e0e0e0;
+    --border-color: #dddddd;
+    --accent-blue: #1a237e;
 }
 
-.theme-btn {
-    padding: 8px 16px;
-    color: rgb(255, 255, 255);
-    font-family: "Open Sans", Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;                                 
-    border-radius: 5px; 
-    
+/* 2. Цвета для ТЕМНОЙ темы */
+body.dark-theme {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #ffffff;
+    --header-bg: #000000;
+    --display-bg: #2d2d2d;
+    --btn-default: #333333;
+    --btn-secondary: #444444;
+    --border-color: #444444;
+    --accent-blue: #3949ab; /* Чуть светлее для контраста в темной теме */
 }
 
-.theme-btn:hover {
-  background: rgb(137, 139, 142); 
-  font-weight: 700;
-}
-
-.btn:hover {
-  background: rgb(221, 222, 224); 
-  font-weight: 700;
-}
-
-.btn:active {
-  filter: brightness(130%);
-}
-
-.btn.primary { 
-  background: rgb(50, 66, 170); 
-  border: 2px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
-  color:white;
-}
-
-.btn.author{
-  font-size: 10px;
-  background-color: rgb(115, 18, 203) ;
-  color:#ffffff;
-  width: 108px;
-
-}
-
-.btn.author.btn:hover{
-  background-color:  rgb(115, 76, 223);
-}
-
-.btn.primary:hover {
-  background: rgb(82, 143, 234);  
-  color: white;
-}
-
-.btn.secondary { 
-  background: rgb(154, 152, 152); 
-}
-
-
-.btn.execute:hover{
-  background-color:  rgb(223, 105, 109);
-}
-
-
-.btn.secondary:hover{
-  background-color: rgb(118, 119, 114);
-}
-
-.btn.execute { 
-  background-color:  rgb(179, 34, 40); 
-  width: 224px;
-}      
-
-.display { 
-  width: 220px;
-  height: 50px;
-  margin-bottom: 10px;         
-  padding-right: 10px;        
-  text-align: right;         
-  font-size: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
-  border-radius: 10px;
-}
-
+/* 3. Применяем переменные к элементам */
 body {
-  display: flex;
-  flex-direction: column;     
-  align-items: center;     
-  min-height: 100vh;
-  background-color: rgb(255, 255, 255);
-  color: rgb(255, 255, 255); 
-  font-family: "Open Sans", Arial, sans-serif;
-  font-size: 14px;
-  background-image: url('moscow.jpg'); 
-  background-size: cover;
-  background-position: center;
-  
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Open Sans', Arial, sans-serif;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.visa-container{
-  margin: auto;
-  margin-top: 5%;
-  padding: 30px;
-  border-radius: 30px;
-  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.4); 
-  background-color: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+.main-header {
+    width: 100%;
+    background-color: #3242AA;
+    color: white;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    transition: background-color 0.3s;
 }
 
-.author-information {
-    margin-top: 5px;           
-    margin-bottom: 10px;
-    width: fit-content;         
-    margin-left: auto;          
-    margin-right: auto;        
-    background: rgb(255, 255, 255);         
-    padding: 15px;
-    border-radius: 5px; 
+.header-content {
+    width: 96%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.logo { 
+    margin: 0; 
+    font-size: 24px; 
+    font-weight: normal; 
+    letter-spacing: 1px;
+}
 
-.author-details {
-    font-family: "Open Sans", Arial, sans-serif;
-    color: rgb(50, 66, 170);
+/* Серая кнопка смены темы */
+.theme-btn-header {
+    background: #f4f7f9; 
+    color: white;
+    color:#000000;
+    font-size: 14px;
+    border: none;
+    padding: 12px 24px; /* Кнопка станет заметно крупнее */
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.theme-btn-header:hover { background: #5a6268; }
+
+.lab-purpose {
+    margin: 25px 0;
+    padding: 15px 30px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+}
+
+.highlight { 
+    background: var(--header-bg); 
+    color: white; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+}
+
+.app-content {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 40px;
+}
+
+.author-sidebar {
+    position: absolute;
+    left: 2%;
+    top: 0;
+    width: 200px;
 }
 
 .author-details summary {
     cursor: pointer;
-    font-weight: 600;
+    padding: 10px;
+
 }
 
-.github-button-container {
-    text-align: center;      
-    margin-top: 5px;
+.author-content {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    width: 230px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.viza-container {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 320px;
+    border: 1px solid var(--border-color);
+}
+
+.display-wrapper {
+    background: var(--display-bg);
+    padding: 12px;
+    border-radius: 12px;
     margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+}
+
+.display {
+    color: var(--text-color);
+    font-size: 32px;
+    text-align: right;
+    flex-grow: 1;
+}
+
+.curr-select {
+    background: var(-----display-bg);
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Кнопки калькулятора */
+.calc-btn {
+    width: 74px;
+    height: 55px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--btn-default);
+    color: var(--text-color);
+    font-size: 19px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.calc-btn:hover { filter: brightness(0.9); }
+
+.calc-btn.secondary {
+    background: var(--btn-secondary);
+    border: none;
+}
+
+.calc-btn.primary { background: var(--accent-blue); color: white; border: none; }
+.calc-btn.currency-btn { background: #6a1b9a; color: white; border: none; width: 156px; font-size: 14px; font-weight: bold; }
+.calc-btn.execute { background: #d32f2f; color: white; border: none; width: 100%; margin-top: 10px; font-weight: bold; }
+
+/* Футер */
+.footer-area {
+    margin-top: auto;
+    padding: 30px 0;
 }
 
 .github-btn {
-    display: inline-block;  
-    padding: 10px 20px;      
-    background-color: rgb(50, 66, 170); 
-    color: white;              
-    border-radius: 5px;       
-    font-family: "Open Sans", Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    padding: 12px 40px;
+    background: var(--header-bg);
+    color: white;
     text-decoration: none;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
-}
-
-.github-btn:hover {
-    background-color: #838684;
-}
-
-/* Контейнер для цели ЛР */
-.lab-purpose {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    font-family: "Open Sans", Arial, sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #ffffff;
-}
-
-.lab-purpose .highlight {
-    background-color: rgb(50, 66, 170); 
-    color: white;                       
-    padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 10px;
     font-weight: 600;
-    margin: 0 2px;
-    display: inline-block;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);  
+    transition: 0.3s;
 }
+
+.github-btn:hover { opacity: 0.9; transform: scale(1.05); }
