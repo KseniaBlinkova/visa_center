@@ -52,7 +52,6 @@ export class VisaPage {
     render() {
         this.parent.innerHTML = this.getHTML();
 
-        // Кнопка назад
         new ButtonBack(document.getElementById('back-btn-placeholder')).render(() => window.renderPage(MainPage));
     }
 }
