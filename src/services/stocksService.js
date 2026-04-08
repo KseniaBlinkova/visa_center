@@ -20,7 +20,6 @@ const findOne = (id) => {
     return stocks.find(stock => stock.id === id);
 };
 
-// Метод для создания (чтобы POST запрос из методички работал)
 const create = (stockData) => {
     const stocks = fileService.readData(dataFilePath);
     const newId = stocks.length > 0 ? Math.max(...stocks.map(s => s.id)) + 1 : 1;
@@ -30,4 +29,24 @@ const create = (stockData) => {
     return newStock;
 };
 
-module.exports = { init, findAll, findOne, create };
+const update = (id, stockData) => {
+    const stocks = fileService.readData(dataFilePath);
+    const index = stocks.findIndex(s => s.id == id);
+    if (index === -1) return null;
+
+    
+    stocks[index] = { ...stocks[index], ...stockData };
+    fileService.writeData(dataFilePath, stocks);
+    return stocks[index];
+};
+
+const remove = (id) => {
+    const stocks = fileService.readData(dataFilePath);
+    const filteredStocks = stocks.filter(s => s.id !== id);
+    if (filteredStocks.length === stocks.length) return false;
+    
+    fileService.writeData(dataFilePath, filteredStocks);
+    return true;
+};
+
+module.exports = { init, findAll, findOne, create, update, remove };

@@ -18,4 +18,18 @@ const createStock = (req, res) => {
     res.status(201).json(newStock);
 };
 
-module.exports = { getAllStocks, getStockById, createStock };
+const updateStock = (req, res) => {
+    const id = parseInt(req.params.id);
+    const updatedStock = stocksService.update(id, req.body);
+    if (!updatedStock) return res.status(404).json({ error: 'Не удалось обновить' });
+    res.json(updatedStock);
+};
+
+const removeStock = (req, res) => {
+    const id = parseInt(req.params.id);
+    const success = stocksService.remove(id);
+    if (!success) return res.status(404).json({ error: 'Не удалось удалить' });
+    res.status(204).send();
+};
+
+module.exports = { getAllStocks, getStockById, createStock, updateStock, removeStock };

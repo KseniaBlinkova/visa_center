@@ -5,5 +5,7 @@ const stocksController = require('../controllers/stocksController');
 router.get('/', stocksController.getAllStocks);
 router.get('/:id', stocksController.getStockById);
 router.post('/', stocksController.createStock);
+router.patch('/:id', stocksController.updateStock);
+router.delete('/:id', stocksController.removeStock);
 
 module.exports = router;

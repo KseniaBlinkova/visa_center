@@ -11,7 +11,7 @@ stocksService.init(DATA_PATH);
 
 app.use(express.json());
 
-// Логирование (чтобы видеть запросы в терминале)
+// Логирование в терминале
 app.use((req, res, next) => {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next();
