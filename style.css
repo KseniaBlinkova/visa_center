@@ -8,7 +8,7 @@
     --btn-default: #fcfcfc;
     --btn-secondary: #e0e0e0;
     --border-color: #dddddd;
-    --accent-blue: #1a237e;
+    /* --accent-blue: #1a237e; */
 }
 
 /* 2. Цвета для ТЕМНОЙ темы */
@@ -150,13 +150,23 @@ body {
 }
 
 .curr-select {
-    background: var(-----display-bg);
+    background: var(--display-bg);
     color: rgb(0, 0, 0);
     border: none;
     padding: 4px 8px;
     border-radius: 6px;
     cursor: pointer;
 }
+
+.calc-row {
+    display: flex;
+    justify-content: space-between; /* Распределяет кнопки ровно по ширине */
+    margin-bottom: 8px; /* Отступ между рядами */
+}
+
+/* .calc-row {
+    margin-top: 5px;
+} */
 
 /* Кнопки калькулятора */
 .calc-btn {
@@ -178,9 +188,11 @@ body {
     border: none;
 }
 
-.calc-btn.primary { background: var(--accent-blue); color: white; border: none; }
-.calc-btn.currency-btn { background: #6a1b9a; color: white; border: none; width: 156px; font-size: 14px; font-weight: bold; }
-.calc-btn.execute { background: #d32f2f; color: white; border: none; width: 100%; margin-top: 10px; font-weight: bold; }
+.calc-btn.primary { background: var(--header-bg); color: white; border: none; }
+.calc-btn.currency-btn { background-color: #B32228; color: white; border: none; width: 156px; font-size: 14px; font-weight: bold; }
+.calc-btn.execute { background: #e0e0e0; color: black; border: none; width: 100%; margin-top: 10px; font-weight: normal; }
+
+
 
 /* Футер */
 .footer-area {
