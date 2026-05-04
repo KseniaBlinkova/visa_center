@@ -5,12 +5,12 @@ class VisaUrls {
 
     // Путь к списку всех виз
     getVisaList() {
-        return `${this.baseUrl}/stocks`; 
+        return `${this.baseUrl}/visas`; 
     }
 
     // Путь к конкретной визе по ID
     getVisaById(id) {
-        return `${this.baseUrl}/stocks/${id}`;
+        return `${this.baseUrl}/visas/${id}`;
     }
 }
 export const visaUrls = new VisaUrls();
