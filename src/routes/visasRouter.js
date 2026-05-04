@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const stocksController = require('../controllers/stocksController');
+const stocksController = require('../controllers/visasController.js');
 
 router.get('/', stocksController.getAllStocks);
 router.get('/:id', stocksController.getStockById);
