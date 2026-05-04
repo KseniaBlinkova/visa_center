@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const stocksController = require('../controllers/visasController.js');
+const visaController = require('../controllers/visasController.js');
 
-router.get('/', stocksController.getAllStocks);
-router.get('/:id', stocksController.getStockById);
-router.post('/', stocksController.createStock);
-router.patch('/:id', stocksController.updateStock);
-router.delete('/:id', stocksController.removeStock);
+router.get('/', visaController.getAllVisa);
+router.get('/:id', visaController.getVisaById);
+router.post('/', visaController.createVisa);
+router.patch('/:id', visaController.updateVisa);
+router.delete('/:id', visaController.removeVisa);
 
 module.exports = router;
