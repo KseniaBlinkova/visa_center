@@ -1,4 +1,3 @@
-import { ButtonBack } from "../../components/button-back/button-back.js";
 import { MainPage } from "../main/main.js";
 import { PlanetComponent } from "../../components/planet/planet.js";
 
@@ -23,7 +22,6 @@ export class VisaPage {
 
     return `
         <div class="container mt-4">
-            <div id="back-btn-placeholder" class="mb-3"></div>
             <div class="card shadow-sm border-0">
                 <div class="row g-0">
                     <div class="col-md-6 bg-light d-flex flex-column align-items-center justify-content-center" style="min-height: 450px;">

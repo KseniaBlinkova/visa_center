@@ -5,9 +5,10 @@ export class VisaCardComponent {
         this.parent = parent;
     }
 
-    // РЕАЛИЗАЦИЯ ЗАДАЧИ 2.3 
+    // РЕАЛИЗАЦИЯ ЗАДАЧИ 2.3 (Максимальная серия 1)
     getMaxApprovalSeries(binaryStr) {
         if (!binaryStr) return 0;
+        // Разбиваем строку по нулям и находим самую длинную последовательность единиц
         return Math.max(...binaryStr.split('0').map(group => group.length));
     }
 
@@ -22,6 +23,7 @@ export class VisaCardComponent {
             const currentObj = objects[i];
 
             for (const key in currentObj) {
+                // Если ключа еще нет в итоговом объекте, добавляем его (приоритет первого объекта)
                 if (currentObj.hasOwnProperty(key) && !(key in result)) {
                     result[key] = currentObj[key]; 
                 }
@@ -33,26 +35,45 @@ export class VisaCardComponent {
     }
 
     getHTML(data) {
+        const history = data.approvalHistory || "0";
+        const maxSeries = this.getMaxApprovalSeries(history);
+        const totalChecks = history.length;
+        
+        const generalDocs = { passport: "Загранпаспорт", photo: "Фото" };
+        const countryDocs = data.extraDocs || { insurance: "Страховка" };
+        const fullPackage = this.merge(generalDocs, countryDocs);
+        const docsString = Object.values(fullPackage).join(", ");
+
         return `
             <div class="col" id="visa-card-${data.id}">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card h-100 shadow-sm border-0 position-relative">
+                    ${data.isNew ? `<span class="position-absolute top-0 start-0 badge rounded-pill bg-danger" style="margin: 10px; z-index: 5;">NEW</span>` : ''}
+                    
                     <img src="${data.src}" class="card-img-top" alt="${data.title}" style="height: 200px; object-fit: cover;">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title" style="color: #3242AA; font-weight: bold;">${data.title}</h5>
-                        <p class="card-text text-muted flex-grow-1">${data.text}</p>
                         
-                        <div class="mb-2" style="min-height: 50px;">
-                            <span id="stats-output-${data.id}" class="badge bg-success mb-1" style="display: none;"></span>
-                            <small id="merge-output-${data.id}" class="text-muted d-block" style="font-size: 0.75rem;"></small>
+                        <!-- Блок заголовка и рейтинга -->
+                        <div class="d-flex justify-content-between align-items-start mb-2" style="min-height: 3.5rem;">
+                            <h5 class="card-title" style="color: #3242AA; font-weight: bold; margin: 0; line-height: 1.2;">
+                                ${data.title}
+                            </h5>
+                            <span class="badge bg-success" title="Серия одобрений" style="white-space: nowrap; margin-left: 10px;">
+                                ${maxSeries} из ${totalChecks}
+                            </span>
                         </div>
-
-                        <button class="btn btn-outline-secondary btn-sm w-100 mb-2 stats-btn">
-                            Статистика одобрений
-                        </button>
-
-                        <button class="btn btn-outline-info btn-sm w-100 mb-3 merge-btn">
-                            Проверить документы
-                        </button>
+                        
+                        <!-- Описание визы (фиксированная высота) -->
+                        <p class="card-text text-muted" style="font-size: 0.9rem; min-height: 2.8rem; margin-bottom: 1rem; line-height: 1.4;">
+                            ${data.text}
+                        </p>
+                        
+                        <!-- Блок документов (фиксированная высота) -->
+                        <div class="mb-3">
+                            <small class="text-primary fw-bold" style="font-size: 0.75rem; text-transform: uppercase;">Необходимые документы:</small><br>
+                            <small class="text-muted" style="font-size: 0.85rem; display: block; min-height: 2.5rem; line-height: 1.3;">
+                                ${docsString}
+                            </small>
+                        </div>
 
                         <div class="d-flex justify-content-between align-items-center mt-auto">
                             <button class="btn btn-primary btn-sm details-btn">Подробнее</button>
@@ -63,35 +84,12 @@ export class VisaCardComponent {
             </div>
         `;
     }
-
     render(data, onDetails, onDelete) {
         this.parent.insertAdjacentHTML('beforeend', this.getHTML(data));
         const cardElement = document.getElementById(`visa-card-${data.id}`);
         
         if (cardElement) {
-            // Клик "Подробнее"
             cardElement.querySelector('.details-btn').onclick = onDetails;
-
-            // Логика кнопки Статистики (Задача 2.3)
-            cardElement.querySelector('.stats-btn').onclick = () => {
-                const sequence = data.approvalHistory || "0";
-                const maxSeries = this.getMaxApprovalSeries(sequence);
-                const output = document.getElementById(`stats-output-${data.id}`);
-                output.textContent = `Пик: ${maxSeries} из ${sequence.length} одобрений`;
-                output.style.display = 'inline-block';
-            };
-
-            // Логика кнопки Документов (Задача 3.5)
-            cardElement.querySelector('.merge-btn').onclick = () => {
-                const generalDocs = { passport: "Загранпаспорт", photo: "Фото" };
-                const countryDocs = data.extraDocs || { insurance: "Страховка" };
-                
-                // Слияние объектов
-                const fullPackage = this.merge(generalDocs, countryDocs);
-                
-                const output = document.getElementById(`merge-output-${data.id}`);
-                output.textContent = "Нужно: " + Object.values(fullPackage).join(", ");
-            };
         }
         
         const deleteContainer = document.getElementById(`del-btn-container-${data.id}`);
@@ -101,4 +99,3 @@ export class VisaCardComponent {
         }
     }
 }
-
