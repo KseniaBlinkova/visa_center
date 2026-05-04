@@ -34,8 +34,23 @@ export class MainPage {
             </div>`;
     }
 
+    // ИСПОЛЬЗУЕМ MERGE ДЛЯ СОЗДАНИЯ НОВОЙ КАРТОЧКИ
     addVisa() {
-        const newVisa = { ...this.visaData[0], id: Date.now(), title: `${this.visaData[0].title} ` };
+        const cardComponent = new VisaCardComponent();
+        const baseData = this.visaData[0]; // Берем за основу первую визу
+        
+        // Новые свойства для карточки
+        const updatedInfo = { 
+            id: Date.now(), 
+            src: "https://t3.ftcdn.net/jpg/00/93/90/14/360_F_93901422_4paFSbjSWE6nIjRocyedVHLyXr5tACN4.jpg",
+            title: "Спецпредложение", 
+            isNew: true, // Флаг для отображения значка
+            approvalHistory: "1111111" 
+        };
+
+        // Применяем задачу 3.1: сливаем новые данные с базовыми
+        const newVisa = cardComponent.merge(updatedInfo, baseData);
+        
         this.visaData.push(newVisa);
         this.renderCards(this.visaData);
     }
@@ -48,10 +63,9 @@ export class MainPage {
     renderCards(data) {
         const list = document.getElementById('visa-list');
         if (!list) return;
-        list.innerHTML = ''; // Очищаем список перед новой отрисовкой
+        list.innerHTML = '';
 
         data.forEach(item => {
-            // Создаем экземпляр компонента карточки
             const card = new VisaCardComponent(list);
             card.render(
                 item, 
@@ -70,5 +84,4 @@ export class MainPage {
         new ButtonAdd(document.getElementById('add-btn-placeholder')).render(() => this.addVisa());
         this.renderCards(this.visaData);
     }
-
 }
