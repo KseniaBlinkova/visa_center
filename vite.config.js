@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   build: {
     // Указываем папку, куда Vite положит готовый бандл
-    outDir: 'public', 
+    outDir: 'dist', 
     // Очищать папку перед каждой новой сборкой
     emptyOutDir: true,
   },

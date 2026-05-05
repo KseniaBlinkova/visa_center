@@ -15,7 +15,8 @@
   "author": "Ksenia Blinkova",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "three": "^0.184.0"
   },
   "devDependencies": {
     "vite": "^5.0.0"
