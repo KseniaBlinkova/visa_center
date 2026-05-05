@@ -13,7 +13,7 @@ stocksService.init(DATA_PATH);
 app.use(express.json());
 
 // Она говорит серверу раздавать статику из папки public
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Логирование в терминале
 app.use((req, res, next) => {
