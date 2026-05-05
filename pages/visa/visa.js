@@ -10,11 +10,12 @@ export class VisaPage {
         this.data = null;
     }
 
-
     getHTML(data) {
-        // Теперь используем fullDescription и term прямо из пришедших данных
         return `
             <div class="container mt-4">
+                <div class="mb-3">
+                    <button id="back-btn" class="btn btn-outline-secondary btn-sm">← Вернуться к списку</button>
+                </div>
                 <div class="card shadow-sm border-0">
                     <div class="row g-0">
                         <div class="col-md-6 bg-light d-flex flex-column align-items-center justify-content-center" style="min-height: 450px;">
@@ -32,7 +33,6 @@ export class VisaPage {
                         <div class="col-md-6">
                             <div class="card-body p-4">
                                 <h2 class="fw-bold" style="color: #3242AA;">${data.title}</h2>
-                                <!-- Данные из поля fullDescription вашего JSON -->
                                 <p class="lead mt-3" style="color: #444;">${data.fullDescription || "Описание уточняется..."}</p>
                                 <hr>
                                 <p><strong>Срок оформления:</strong> ${data.term || 'не указан'}</p>
@@ -46,22 +46,37 @@ export class VisaPage {
             </div>`;
     }
 
-    render() {
-        this.parent.innerHTML = '<div class="text-center mt-5"><div class="spinner-border text-primary" role="status"></div><p>Загрузка данных...</p></div>';
+    // ЛР6: Асинхронный рендер с использованием await
+    async render() {
+        this.parent.innerHTML = `
+            <div class="text-center mt-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2">Загрузка 3D-модели и данных...</p>
+            </div>`;
 
-        ajax.get(visaUrls.getVisaById(this.id), (data, status) => {
-            if (status === 200) {
-                this.data = data;
-                this.parent.innerHTML = this.getHTML(data);
-                this.initPlanet();
-            } else {
-                this.parent.innerHTML = `
-                    <div class="container mt-5">
-                        <div class="alert alert-danger">Ошибка: данные не получены (Статус: ${status})</div>
-                        <button class="btn btn-primary" onclick="window.renderPage(MainPage)">Вернуться на главную</button>
-                    </div>`;
-            }
-        });
+        try {
+            // Ждем данные от сервера без колбэков
+            const data = await ajax.get(visaUrls.getVisaById(this.id));
+            this.data = data;
+            
+            // Отрисовываем HTML
+            this.parent.innerHTML = this.getHTML(data);
+            
+            // Навешиваем обработчик на кнопку "Назад"
+            document.getElementById('back-btn').onclick = () => window.renderPage(MainPage);
+
+            // Инициализируем планету после того, как HTML появился в DOM
+            this.initPlanet();
+
+        } catch (error) {
+            this.parent.innerHTML = `
+                <div class="container mt-5 text-center">
+                    <div class="alert alert-danger">Ошибка: данные не получены (${error.message})</div>
+                    <button class="btn btn-primary" id="error-back-btn">Вернуться на главную</button>
+                </div>`;
+            
+            document.getElementById('error-back-btn').onclick = () => window.renderPage(MainPage);
+        }
     }
 
     initPlanet() {
@@ -70,6 +85,7 @@ export class VisaPage {
             const planet = new PlanetComponent(planetContainer);
             planet.init();
 
+            // Привязываем кнопки управления камерой
             document.getElementById('view-front').onclick = () => planet.setView('front');
             document.getElementById('view-back').onclick = () => planet.setView('back');
             document.getElementById('view-left').onclick = () => planet.setView('left');
