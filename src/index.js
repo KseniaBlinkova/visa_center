@@ -1,7 +1,6 @@
 
 const express = require('express');
 const path = require('path');
-const cors = require('cors'); // <--- ДОБАВИТЬ ЭТО
 const stocksRouter = require('./routes/visasRouter.js');
 const stocksService = require('./services/visasService.js');
 
@@ -11,7 +10,6 @@ const PORT = 3005;
 const DATA_PATH = path.join(__dirname, 'data/visas.json');
 stocksService.init(DATA_PATH);
 
-app.use(cors()); // <--- ДОБАВИТЬ ЭТО (лучше до остальных app.use)
 app.use(express.json());
 
 // Логирование в терминале
