@@ -44,6 +44,39 @@ export class VisaPage {
     }
 
     // ЛР6: Асинхронный рендер с использованием await
+    // async render() {
+    //     this.parent.innerHTML = `
+    //         <div class="text-center mt-5">
+    //             <div class="spinner-border text-primary" role="status"></div>
+    //             <p class="mt-2">Загрузка 3D-модели и данных...</p>
+    //         </div>`;
+
+    //     try {
+    //         // Ждем данные от сервера без колбэков
+    //         const data = await ajax.get(visaUrls.getVisaById(this.id));
+    //         this.data = data;
+            
+    //         // Отрисовываем HTML
+    //         this.parent.innerHTML = this.getHTML(data);
+            
+    //         // Навешиваем обработчик на кнопку "Назад"
+    //         document.getElementById('back-btn').onclick = () => window.renderPage(MainPage);
+
+    //         // Инициализируем планету после того, как HTML появился в DOM
+    //         this.initPlanet();
+
+    //     } catch (error) {
+    //         this.parent.innerHTML = `
+    //             <div class="container mt-5 text-center">
+    //                 <div class="alert alert-danger">Ошибка: данные не получены (${error.message})</div>
+    //                 <button class="btn btn-primary" id="error-back-btn">Вернуться на главную</button>
+    //             </div>`;
+            
+    //         document.getElementById('error-back-btn').onclick = () => window.renderPage(MainPage);
+    //     }
+    // }
+
+    // ЛР6: Асинхронный рендер с использованием await
     async render() {
         this.parent.innerHTML = `
             <div class="text-center mt-5">
@@ -52,27 +85,33 @@ export class VisaPage {
             </div>`;
 
         try {
-            // Ждем данные от сервера без колбэков
+            // Ждем данные от сервера
             const data = await ajax.get(visaUrls.getVisaById(this.id));
             this.data = data;
             
-            // Отрисовываем HTML
+            // Отрисовываем HTML (без кнопки back-btn)
             this.parent.innerHTML = this.getHTML(data);
             
-            // Навешиваем обработчик на кнопку "Назад"
-            document.getElementById('back-btn').onclick = () => window.renderPage(MainPage);
+            // Оживляем кнопку "Домой" в шапке (если она там есть)
+            const homeBtn = document.getElementById('home-btn') || document.querySelector('button:contains("Домой")');
+            if (homeBtn) {
+                homeBtn.onclick = () => window.renderPage(MainPage);
+            }
 
-            // Инициализируем планету после того, как HTML появился в DOM
+            // Инициализируем планету
             this.initPlanet();
 
         } catch (error) {
             this.parent.innerHTML = `
                 <div class="container mt-5 text-center">
                     <div class="alert alert-danger">Ошибка: данные не получены (${error.message})</div>
-                    <button class="btn btn-primary" id="error-back-btn">Вернуться на главную</button>
+                    <button class="btn btn-primary" id="error-back-btn">На главную</button>
                 </div>`;
             
-            document.getElementById('error-back-btn').onclick = () => window.renderPage(MainPage);
+            const errBtn = document.getElementById('error-back-btn');
+            if (errBtn) {
+                errBtn.onclick = () => window.renderPage(MainPage);
+            }
         }
     }
 

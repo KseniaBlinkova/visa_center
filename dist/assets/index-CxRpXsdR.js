@@ -4219,11 +4219,11 @@ void main() {
             <div class="text-center mt-5">
                 <div class="spinner-border text-primary" role="status"></div>
                 <p class="mt-2">Загрузка 3D-модели и данных...</p>
-            </div>`;try{const e=await Xr.get(Qs.getVisaById(this.id));this.data=e,this.parent.innerHTML=this.getHTML(e),document.getElementById("back-btn").onclick=()=>window.renderPage(cr),this.initPlanet()}catch(e){this.parent.innerHTML=`
+            </div>`;try{const e=await Xr.get(Qs.getVisaById(this.id));this.data=e,this.parent.innerHTML=this.getHTML(e);const t=document.getElementById("home-btn")||document.querySelector('button:contains("Домой")');t&&(t.onclick=()=>window.renderPage(cr)),this.initPlanet()}catch(e){this.parent.innerHTML=`
                 <div class="container mt-5 text-center">
                     <div class="alert alert-danger">Ошибка: данные не получены (${e.message})</div>
-                    <button class="btn btn-primary" id="error-back-btn">Вернуться на главную</button>
-                </div>`,document.getElementById("error-back-btn").onclick=()=>window.renderPage(cr)}}initPlanet(){const e=document.getElementById("planet-container");if(e){const t=new wM(e);t.init(),document.getElementById("view-front").onclick=()=>t.setView("front"),document.getElementById("view-back").onclick=()=>t.setView("back"),document.getElementById("view-left").onclick=()=>t.setView("left"),document.getElementById("view-right").onclick=()=>t.setView("right"),document.getElementById("zoom-in").onclick=()=>t.zoomIn(),document.getElementById("zoom-out").onclick=()=>t.zoomOut()}}}class Rd{constructor(e,t){this.parent=e,this.id=t}getHTML(e){return`
+                    <button class="btn btn-primary" id="error-back-btn">На главную</button>
+                </div>`;const t=document.getElementById("error-back-btn");t&&(t.onclick=()=>window.renderPage(cr))}}initPlanet(){const e=document.getElementById("planet-container");if(e){const t=new wM(e);t.init(),document.getElementById("view-front").onclick=()=>t.setView("front"),document.getElementById("view-back").onclick=()=>t.setView("back"),document.getElementById("view-left").onclick=()=>t.setView("left"),document.getElementById("view-right").onclick=()=>t.setView("right"),document.getElementById("zoom-in").onclick=()=>t.zoomIn(),document.getElementById("zoom-out").onclick=()=>t.zoomOut()}}}class Rd{constructor(e,t){this.parent=e,this.id=t}getHTML(e){return`
             <div class="container mt-4">
                 <div class="card shadow p-4">
                     <h2 class="mb-4" style="color: #3242AA;">Редактирование визы</h2>
