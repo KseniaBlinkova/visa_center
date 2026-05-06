@@ -76,42 +76,30 @@ export class VisaPage {
     //     }
     // }
 
-    // ЛР6: Асинхронный рендер с использованием await
     async render() {
+        // Очищаем и ставим спиннер
         this.parent.innerHTML = `
             <div class="text-center mt-5">
                 <div class="spinner-border text-primary" role="status"></div>
-                <p class="mt-2">Загрузка 3D-модели и данных...</p>
+                <p class="mt-2">Загрузка данных...</p>
             </div>`;
 
         try {
-            // Ждем данные от сервера
+            // Получаем данные от сервера (ЛР6: await)
             const data = await ajax.get(visaUrls.getVisaById(this.id));
             this.data = data;
             
-            // Отрисовываем HTML (без кнопки back-btn)
+            // Вставляем основной контент страницы
             this.parent.innerHTML = this.getHTML(data);
             
-            // Оживляем кнопку "Домой" в шапке (если она там есть)
-            const homeBtn = document.getElementById('home-btn') || document.querySelector('button:contains("Домой")');
-            if (homeBtn) {
-                homeBtn.onclick = () => window.renderPage(MainPage);
-            }
-
-            // Инициализируем планету
+            // Запускаем планету
             this.initPlanet();
 
         } catch (error) {
             this.parent.innerHTML = `
                 <div class="container mt-5 text-center">
-                    <div class="alert alert-danger">Ошибка: данные не получены (${error.message})</div>
-                    <button class="btn btn-primary" id="error-back-btn">На главную</button>
+                    <div class="alert alert-danger">Ошибка: ${error.message}</div>
                 </div>`;
-            
-            const errBtn = document.getElementById('error-back-btn');
-            if (errBtn) {
-                errBtn.onclick = () => window.renderPage(MainPage);
-            }
         }
     }
 
