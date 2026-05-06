@@ -13,9 +13,6 @@ export class VisaPage {
     getHTML(data) {
         return `
             <div class="container mt-4">
-                <div class="mb-3">
-                    <button id="back-btn" class="btn btn-outline-secondary btn-sm">← Вернуться к списку</button>
-                </div>
                 <div class="card shadow-sm border-0">
                     <div class="row g-0">
                         <div class="col-md-6 bg-light d-flex flex-column align-items-center justify-content-center" style="min-height: 450px;">
