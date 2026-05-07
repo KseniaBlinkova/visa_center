@@ -16,7 +16,7 @@ class Ajax {
         return await response.json();
     }
 
-    // PATCH запрос (обновление) - КРИТИЧНО ДЛЯ ЛР6
+    // PATCH запрос (обновление)
     async patch(url, data) {
         const response = await fetch(url, {
             method: 'PATCH',
