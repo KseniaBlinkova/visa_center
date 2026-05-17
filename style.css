@@ -1,4 +1,4 @@
-header{ /* Выбери класс своего хедера */
+header{ 
     display: flex;
     justify-content: space-between;
     align-items: center;
