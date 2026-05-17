@@ -43,41 +43,7 @@ export class VisaPage {
             </div>`;
     }
 
-    // ЛР6: Асинхронный рендер с использованием await
-    // async render() {
-    //     this.parent.innerHTML = `
-    //         <div class="text-center mt-5">
-    //             <div class="spinner-border text-primary" role="status"></div>
-    //             <p class="mt-2">Загрузка 3D-модели и данных...</p>
-    //         </div>`;
-
-    //     try {
-    //         // Ждем данные от сервера без колбэков
-    //         const data = await ajax.get(visaUrls.getVisaById(this.id));
-    //         this.data = data;
-            
-    //         // Отрисовываем HTML
-    //         this.parent.innerHTML = this.getHTML(data);
-            
-    //         // Навешиваем обработчик на кнопку "Назад"
-    //         document.getElementById('back-btn').onclick = () => window.renderPage(MainPage);
-
-    //         // Инициализируем планету после того, как HTML появился в DOM
-    //         this.initPlanet();
-
-    //     } catch (error) {
-    //         this.parent.innerHTML = `
-    //             <div class="container mt-5 text-center">
-    //                 <div class="alert alert-danger">Ошибка: данные не получены (${error.message})</div>
-    //                 <button class="btn btn-primary" id="error-back-btn">Вернуться на главную</button>
-    //             </div>`;
-            
-    //         document.getElementById('error-back-btn').onclick = () => window.renderPage(MainPage);
-    //     }
-    // }
-
     async render() {
-        // Очищаем и ставим спиннер
         this.parent.innerHTML = `
             <div class="text-center mt-5">
                 <div class="spinner-border text-primary" role="status"></div>
@@ -85,14 +51,11 @@ export class VisaPage {
             </div>`;
 
         try {
-            // Получаем данные от сервера (ЛР6: await)
             const data = await ajax.get(visaUrls.getVisaById(this.id));
             this.data = data;
-            
-            // Вставляем основной контент страницы
+
             this.parent.innerHTML = this.getHTML(data);
             
-            // Запускаем планету
             this.initPlanet();
 
         } catch (error) {
@@ -109,7 +72,6 @@ export class VisaPage {
             const planet = new PlanetComponent(planetContainer);
             planet.init();
 
-            // Привязываем кнопки управления камерой
             document.getElementById('view-front').onclick = () => planet.setView('front');
             document.getElementById('view-back').onclick = () => planet.setView('back');
             document.getElementById('view-left').onclick = () => planet.setView('left');

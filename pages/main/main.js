@@ -11,11 +11,8 @@ export class MainPage {
         this.parent = parent;
         this.visaData = [];
     }
-
-    // ЛР6: Теперь это асинхронный метод
     async getData(searchTerm = "") {
         const list = document.getElementById('visa-list');
-        // Показываем простенький лоадер внутри списка, пока ждем данные
         if (list) {
             list.innerHTML = '<div class="text-center w-100"><div class="spinner-border text-primary"></div></div>';
         }
@@ -25,7 +22,6 @@ export class MainPage {
             : visaUrls.getVisas();
 
         try {
-            // ЛР6: Ждем данные напрямую (без колбэков)
             const data = await ajax.get(url);
             this.visaData = data; 
             this.renderCards(this.visaData);
@@ -58,12 +54,11 @@ export class MainPage {
         `;
     }
 
-    // ЛР6: Асинхронное удаление
     async deleteVisa(id) {
         if (confirm("Вы уверены, что хотите удалить эту визу?")) {
             try {
                 await ajax.delete(visaUrls.getVisaById(id));
-                await this.getData(); // Обновляем список после удаления
+                await this.getData(); 
             } catch (error) {
                 console.error("Ошибка при удалении:", error);
             }
@@ -91,24 +86,18 @@ export class MainPage {
         });
     }
 
-    // ЛР6: Главный метод отрисовки тоже стал асинхронным
     async render() {
-        // 1. Сначала отрисовываем каркас страницы
         this.parent.innerHTML = this.getHTML();
 
-        // 2. Инициализируем поиск (SearchBar)
         new SearchBar(document.getElementById('search-placeholder'), (term) => {
             this.getData(term); 
         }).render();
 
-        // 3. Инициализируем кнопку добавления
+
         new ButtonAdd(document.getElementById('add-btn-placeholder')).render(() => {
-            // Для добавления новой визы обычно передают null или спец. маршрут, 
-            // но пока оставляем как у тебя было для примера
             window.renderPage(VisaEditPage, 1); 
         });
 
-        // 4. Загружаем данные
         await this.getData();
     }
 }

@@ -55,11 +55,9 @@ export class VisaEditPage {
             </div>`;
 
         try {
-            // Используем обновленный ajax.get без колбэков
             const data = await ajax.get(visaUrls.getVisaById(this.id));
             this.parent.innerHTML = this.getHTML(data);
             
-            // Навешиваем обработчики
             document.getElementById('save-btn').onclick = () => this.saveData();
             document.getElementById('cancel-btn').onclick = () => window.renderPage(MainPage);
             
@@ -77,53 +75,19 @@ export class VisaEditPage {
         const btnText = document.getElementById('save-btn-text');
         const spinner = document.getElementById('save-btn-spinner');
         const msgContainer = document.getElementById('message-container');
-
-        // Собираем данные из полей ввода
         const updatedData = {
             title: document.getElementById('title-input').value,
             text: document.getElementById('text-input').value,
             fullDescription: document.getElementById('desc-input').value,
             term: document.getElementById('term-input').value
         };
-
-        // Включаем индикацию загрузки
         saveBtn.disabled = true;
         btnText.textContent = "Сохранение...";
         spinner.classList.remove('d-none');
-        msgContainer.innerHTML = ''; // Очищаем старые сообщения
-
-        // try {
-        //     // Отправляем PATCH запрос через fetch (ЛР №6)
-        //     await ajax.patch(visaUrls.updateVisaById(this.id), updatedData);
-
-        //     // Показываем красивое уведомление Bootstrap вместо alert
-        //     msgContainer.innerHTML = `
-        //         <div class="alert alert-success show" role="alert">
-        //             ✨ Данные успешно обновлены! Возвращаемся на главную...
-        //         </div>`;
-
-        //     // Ждем 1.5 секунды, чтобы пользователь увидел успех, и уходим на главную
-        //     setTimeout(() => {
-        //         window.renderPage(MainPage);
-        //     }, 1500);
-
-        // } catch (error) {
-        //     // Обработка ошибок
-        //     msgContainer.innerHTML = `
-        //         <div class="alert alert-danger" role="alert">
-        //             ❌ Ошибка при сохранении: ${error.message}
-        //         </div>`;
-            
-        //     // Возвращаем кнопку в рабочее состояние
-        //     saveBtn.disabled = false;
-        //     btnText.textContent = "Сохранить изменения";
-        //     spinner.classList.add('d-none');
-        // }
+        msgContainer.innerHTML = ''; 
 
         try {
             await ajax.patch(visaUrls.updateVisaById(this.id), updatedData);
-
-            // Теперь это просто "status-banner"
             msgContainer.innerHTML = `
                 <div class="status-banner success shadow-sm">
                     <span class="icon">✓</span>
